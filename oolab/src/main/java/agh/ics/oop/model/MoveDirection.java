@@ -1,6 +1,6 @@
 package agh.ics.oop.model;
 
 
-public enum MoveDirection { // enum nie musi być w klasie
+public enum MoveDirection {
     FORWARD, BACKWARD, LEFT, RIGHT
 }

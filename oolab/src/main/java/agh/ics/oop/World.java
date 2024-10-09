@@ -16,7 +16,6 @@ public class World {
                 case MoveDirection.RIGHT -> System.out.println("Zwierzak skręca w prawo");
                 case MoveDirection.LEFT -> System.out.println("Zwierzak skręca w lewo");
             }
-
         }
     }
 }
