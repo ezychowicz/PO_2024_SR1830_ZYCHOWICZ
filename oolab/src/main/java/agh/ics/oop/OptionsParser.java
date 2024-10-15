@@ -4,7 +4,7 @@ import agh.ics.oop.model.MoveDirection;
 
 public class OptionsParser {
     public static MoveDirection[] parse(String[] input){
-        int validCnt = 0;  //zlicza litery w inpucie, które znajdują się w zbiorze: {f,b,r,l}
+        int validCnt = 0;  //zlicza litery w inpucie, które znajdują się w zbiorze {f,b,r,l}
         for (String arg : input){
             if (arg.equals("f") || arg.equals("b") || arg.equals("r") || arg.equals("l")){
                 validCnt++;
