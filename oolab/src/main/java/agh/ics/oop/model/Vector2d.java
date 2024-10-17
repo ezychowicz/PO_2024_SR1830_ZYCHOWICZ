@@ -1,5 +1,5 @@
 package agh.ics.oop.model;
-
+import java.util.Objects;
 public class Vector2d {
     private final int x;
     private final int y;
@@ -14,7 +14,7 @@ public class Vector2d {
         return y;
     }
     public String toString() {
-        return "(" + x + "," + y + ")";
+        return "(%d, %d)".formatted(x, y);
     }
     public boolean precedes(Vector2d other) {
         return x <= other.x && y <= other.y;
@@ -39,16 +39,22 @@ public class Vector2d {
     }
     @Override
     public boolean equals(Object other) {
-        if (other instanceof Vector2d otherVector) {
-            return x == otherVector.x && y == otherVector.y;
-        }
-        return false;
+//        if (other instanceof Vector2d otherVector) {
+//            return x == otherVector.x && y == otherVector.y;
+//        }
+//        return false;
+        if (this == other) return true;  //z wykladu
+        if (!(other instanceof Vector2d vector2d))
+            return false;
+        return x == vector2d.x && y == vector2d.y;
     }
     @Override
     public int hashCode() {
-        int result = Integer.hashCode(x);  // Hash dla x
-        result = 31 * result + Integer.hashCode(y);  // Hash dla y, z mnożeniem przez 31
-        return result;
+        return Objects.hash(x, y); //bardzo spowalnia, szybciej by bylo:
+//        int result = 17;
+//        result = 31 * result + x;
+//        result = 31 * result + y;
+//        return result;
     }
 }
 
