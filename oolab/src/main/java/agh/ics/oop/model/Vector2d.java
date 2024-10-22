@@ -39,22 +39,14 @@ public class Vector2d {
     }
     @Override
     public boolean equals(Object other) {
-//        if (other instanceof Vector2d otherVector) {
-//            return x == otherVector.x && y == otherVector.y;
-//        }
-//        return false;
-        if (this == other) return true;  //z wykladu
+        if (this == other) return true;
         if (!(other instanceof Vector2d vector2d))
             return false;
         return x == vector2d.x && y == vector2d.y;
     }
     @Override
     public int hashCode() {
-        return Objects.hash(x, y); //bardzo spowalnia, szybciej by bylo:
-//        int result = 17;
-//        result = 31 * result + x;
-//        result = 31 * result + y;
-//        return result;
+        return Objects.hash(x, y);
     }
 }
 

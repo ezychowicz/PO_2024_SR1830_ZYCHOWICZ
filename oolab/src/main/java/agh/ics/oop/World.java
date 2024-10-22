@@ -6,12 +6,12 @@ public class World {
         System.out.println("system wystartował");
         MoveDirection[] parsedInput = OptionsParser.parse(args);
         run(parsedInput);
-        System.out.println("system zakończył działanie");
         Vector2d position1 = new Vector2d(1,2);
         System.out.println(position1);
         Vector2d position2 = new Vector2d(-2,1);
         System.out.println(position2);
         System.out.println(position1.add(position2));
+        System.out.println("system zakończył działanie");
     }
     public static void run(MoveDirection[] input){
         for (MoveDirection arg : input) {
