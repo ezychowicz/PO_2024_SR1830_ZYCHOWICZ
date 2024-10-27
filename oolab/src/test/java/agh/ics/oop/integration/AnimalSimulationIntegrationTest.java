@@ -6,7 +6,6 @@ import agh.ics.oop.model.Animal;
 import agh.ics.oop.model.MapDirection;
 import agh.ics.oop.model.MoveDirection;
 import agh.ics.oop.model.Vector2d;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -14,22 +13,19 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 
-//czy zwierzę ma właściwą orientację,
-//czy zwierzę przemieszcza się na właściwe pozycje,
-//czy zwierzę nie wychodzi poza mapę,
-//czy dane wejściowe podane jako tablica łańcuchów znaków są poprawnie interpretowane.
 public class AnimalSimulationIntegrationTest {
     @Test
-    public void parsing() {
+    public void isInputParsingWorkingWithSimulationCorrectly() { //nie ma sensu testować samego parseowania, bo jest to zrobione dość dokładnie w OptionsParserTest
         String[] input = {"f", "f", "f", "l", "b", "e", "W", "l", "b", "b", "r", "l", "b", "3"};
         List<Vector2d> positions = List.of(new Vector2d(2,2));
 
         List<MoveDirection> directions = OptionsParser.parse(input);
         Simulation sim = new Simulation(positions, directions);
         sim.run();
-
+        MapDirection endingDirection = sim.getAnimalsList().getFirst().getDirection();
         Vector2d endingPosition = sim.getAnimalsList().getFirst().getPos();
         assertEquals(new Vector2d(3,4), endingPosition);
+        assertEquals(endingDirection, MapDirection.SOUTH);
     }
 
     @Test
@@ -70,14 +66,14 @@ public class AnimalSimulationIntegrationTest {
 
     @Test
     public void isRightBoundarySolid(){
-        List<Vector2d> positions = List.of(new Vector2d(0,2));
+        List<Vector2d> positions = List.of(new Vector2d(4,2));
         List<MoveDirection> directions = List.of(MoveDirection.RIGHT, MoveDirection.FORWARD);
 
         Simulation sim = new Simulation(positions, directions);
         sim.run();
 
         Vector2d endingPosition = sim.getAnimalsList().getFirst().getPos();
-        assertEquals(new Vector2d(0,2), endingPosition);
+        assertEquals(new Vector2d(4,2), endingPosition);
     }
 
     @Test
@@ -99,6 +95,7 @@ public class AnimalSimulationIntegrationTest {
 
         MapDirection endingDirection = sim.getAnimalsList().getFirst().getDirection();
         assertEquals(MapDirection.EAST, endingDirection);
+
     }
 
     @Test
@@ -118,7 +115,7 @@ public class AnimalSimulationIntegrationTest {
 
         Vector2d endingPosition = sim.getAnimalsList().getFirst().getPos();
         MapDirection endingDirection = sim.getAnimalsList().getFirst().getDirection();
-        assertEquals(new Vector2d(2,2), endingPosition);
+        assertEquals(new Vector2d(3,2), endingPosition);
         assertEquals(MapDirection.NORTH, endingDirection);
     }
 }
