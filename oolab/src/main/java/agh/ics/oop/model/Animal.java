@@ -21,7 +21,12 @@ public class Animal {
         return this.pos.equals(pos);
     }
 
-
+    public MapDirection getDirection() {
+        return direction;
+    }
+    public Vector2d getPos() {
+        return pos;
+    }
 
     private void moveForwardBackward(MoveDirection currMoveDirection, MapDirection direction) {
         Vector2d move;

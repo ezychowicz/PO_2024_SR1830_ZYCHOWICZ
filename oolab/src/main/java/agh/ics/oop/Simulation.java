@@ -16,6 +16,13 @@ public class Simulation {
         this.moves = moves;
         this.animalsList = createAnimalsList();
     }
+
+    public List<Animal> getAnimalsList() {
+        return animalsList;
+    }
+
+
+
     private List<Animal> createAnimalsList() {
         List<Animal> animalsList = new ArrayList<>();
         for (Vector2d position : initialPositions) {
