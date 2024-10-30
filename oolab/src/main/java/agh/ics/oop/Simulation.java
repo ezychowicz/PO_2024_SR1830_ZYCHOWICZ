@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Simulation {
+    public static final String ANIMAL_STRING = "Zwierze";
     private final List<Vector2d> initialPositions;
     private final List<MoveDirection> moves;
     private final List<Animal> animalsList;
@@ -35,7 +36,7 @@ public class Simulation {
         for (int i = 0; i < moves.size(); i++) {
             animalsIndex = i % animalsList.size();
             animalsList.get(animalsIndex).move(moves.get(i));
-            System.out.printf("Zwierze %d : %s%n", animalsIndex, animalsList.get(animalsIndex).toString().split("\\|")[1]);
+            System.out.printf("%s %d : %s%n", ANIMAL_STRING, animalsIndex, animalsList.get(animalsIndex).toString().split("\\|")[1]);
         }
     }
 }
