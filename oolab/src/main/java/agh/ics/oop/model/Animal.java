@@ -15,7 +15,12 @@ public class Animal {
     }
     @Override
     public String toString() {
-        return "%s|%s".formatted(direction, pos); //%s robi toString na direction i pos (wbudowane toString bedzie uzyte tutaj)
+        return switch(direction){
+            case NORTH -> "^";
+            case SOUTH -> "v";
+            case EAST -> ">";
+            case WEST -> "<";
+        };
     }
     public boolean isAt(Vector2d pos) {
         return this.pos.equals(pos);
@@ -28,7 +33,14 @@ public class Animal {
         return pos;
     }
 
-    private void moveForwardBackward(MoveDirection currMoveDirection, MapDirection direction) {
+    public void setDirection(MapDirection direction) {
+        this.direction = direction;
+    }
+    public void setPos(Vector2d pos) {
+        this.pos = pos;
+    }
+
+    private void moveForwardBackward(MoveDirection currMoveDirection, MapDirection direction, MoveValidator validator) {
         Vector2d move;
         switch (direction) {
             case NORTH -> move = (currMoveDirection == MoveDirection.FORWARD ? MapDirection.NORTH_UNIT_VECTOR : MapDirection.SOUTH_UNIT_VECTOR);
@@ -38,16 +50,16 @@ public class Animal {
             default -> throw new IllegalStateException("Unexpected value: " + direction);
         }
         Vector2d newPosition = pos.add(move);
-        if (newPosition.upperRight(RIGHT_BOUNDARY_VECTOR).equals(RIGHT_BOUNDARY_VECTOR) && newPosition.lowerLeft(LEFT_BOUNDARY_VECTOR).equals(LEFT_BOUNDARY_VECTOR) ) {
+        if (validator.canMoveTo(newPosition)) {
             pos = newPosition;
         }
     }
 
-    public void move(MoveDirection direction){
+    public void move(MoveDirection direction, MoveValidator validator) {
         switch(direction) {
             case LEFT -> this.direction = this.direction.previous();
             case RIGHT -> this.direction = this.direction.next();
-            case FORWARD, BACKWARD -> moveForwardBackward(direction, this.direction);
+            case FORWARD, BACKWARD -> moveForwardBackward(direction, this.direction, validator);
         };
     }
 
