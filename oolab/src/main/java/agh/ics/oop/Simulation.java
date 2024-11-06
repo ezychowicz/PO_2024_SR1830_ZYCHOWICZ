@@ -1,41 +1,55 @@
 package agh.ics.oop;
 
-import agh.ics.oop.model.Animal;
-import agh.ics.oop.model.MoveDirection;
-import agh.ics.oop.model.Vector2d;
+import agh.ics.oop.model.*;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Simulation {
-    private final List<Vector2d> initialPositions;
+    public static final String ANIMAL_STRING = "Zwierze";
+    private final List<Vector2d> positions;
     private final List<MoveDirection> moves;
-    private final List<Animal> animalsList;
-    public Simulation(List<Vector2d> initialPositions, List<MoveDirection> moves) {
-        this.initialPositions = initialPositions;
+    private final WorldMap worldMap;
+    public Simulation(List<Vector2d> positions, List<MoveDirection> moves, WorldMap worldMap) {
+        this.positions = new ArrayList<>(positions); //zeby dało sie usuwać
         this.moves = moves;
-        this.animalsList = createAnimalsList();
+        this.worldMap = worldMap;
+        fillWorldMap();
     }
 
-    public List<Animal> getAnimalsList() {
-        return animalsList;
-    }
-
-
-
-    private List<Animal> createAnimalsList() {
-        List<Animal> animalsList = new ArrayList<>();
-        for (Vector2d position : initialPositions) {
-            animalsList.add(new Animal(position));
+    private void fillWorldMap() {
+        List<Integer> indicesToRemove = new ArrayList<>();
+        for (int i = 0; i < positions.size(); i++) {
+            Vector2d position = positions.get(i);
+            Animal animal = new Animal(position);
+            if (!worldMap.place(animal)) {  // jeśli nie udało się umieścić, dodaj indeks do usunięcia
+                indicesToRemove.add(i);
+            }
         }
-        return animalsList;
+        indicesToRemove.sort(Collections.reverseOrder());
+        for (int idx : indicesToRemove) {
+            positions.remove(idx);
+        }
     }
+    public WorldMap getWorldMap() {
+        return worldMap;
+    }
+
+    public List<Vector2d> getPositions() {
+        return positions;
+    }
+
     public void run(){
         int animalsIndex;
+        Vector2d currPos;
         for (int i = 0; i < moves.size(); i++) {
-            animalsIndex = i % animalsList.size();
-            animalsList.get(animalsIndex).move(moves.get(i));
-            System.out.printf("Zwierze %d : %s%n", animalsIndex, animalsList.get(animalsIndex).toString().split("\\|")[1]);
+            animalsIndex = i % positions.size();
+            currPos = positions.get(animalsIndex); //pozycja zwierzaka, którego bedziemy chcieli przenieść
+            Animal animalAtCurrPos = worldMap.objectAt(currPos);
+            worldMap.move(animalAtCurrPos, moves.get(i)); //próba przeniesienia
+            positions.set(animalsIndex, animalAtCurrPos.getPos()); //zaktualizuj pozycje
+            System.out.println(worldMap);
         }
     }
 }
