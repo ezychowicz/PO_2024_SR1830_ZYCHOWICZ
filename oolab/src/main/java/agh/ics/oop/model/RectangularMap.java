@@ -48,7 +48,7 @@ public class RectangularMap implements WorldMap {
 
     @Override
     public Animal objectAt(Vector2d position) {
-        return isOccupied(position) ? animals.get(position) : null;
+        return animals.get(position);
     }
 
     @Override
