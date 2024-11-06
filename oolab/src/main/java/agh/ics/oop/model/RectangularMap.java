@@ -4,12 +4,11 @@ import agh.ics.oop.model.util.MapVisualizer;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 
 import static agh.ics.oop.model.MoveDirection.*;
 
 public class RectangularMap implements WorldMap {
-    private Map<Vector2d, Animal> animals = new HashMap<>();
+    private final Map<Vector2d, Animal> animals = new HashMap<>();
     private final int width;
     private final int height;
     private final Vector2d upperRightBoundary;
@@ -47,7 +46,7 @@ public class RectangularMap implements WorldMap {
     }
 
     @Override
-    public Animal objectAt(Vector2d position) {
+    public WorldElement objectAt(Vector2d position) {
         return animals.get(position);
     }
 

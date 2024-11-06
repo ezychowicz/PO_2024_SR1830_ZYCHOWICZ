@@ -46,8 +46,8 @@ public class Simulation {
         for (int i = 0; i < moves.size(); i++) {
             animalsIndex = i % positions.size();
             currPos = positions.get(animalsIndex); //pozycja zwierzaka, którego bedziemy chcieli przenieść
-            Animal animalAtCurrPos = worldMap.objectAt(currPos);
-            worldMap.move(animalAtCurrPos, moves.get(i)); //próba przeniesienia
+            WorldElement animalAtCurrPos = worldMap.objectAt(currPos);
+            worldMap.move((Animal) animalAtCurrPos, moves.get(i)); //próba przeniesienia
             positions.set(animalsIndex, animalAtCurrPos.getPos()); //zaktualizuj pozycje
             System.out.println(worldMap);
         }
