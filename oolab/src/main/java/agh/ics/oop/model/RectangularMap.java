@@ -8,7 +8,6 @@ import java.util.Map;
 import static agh.ics.oop.model.MoveDirection.*;
 
 public class RectangularMap extends AbstractWorldMap {
-//    private final Map<Vector2d, GrassField> grasses = new HashMap<>();
     private final int width;
     private final int height;
     private final Vector2d upperRightBoundary;
@@ -21,37 +20,6 @@ public class RectangularMap extends AbstractWorldMap {
         this.lowerLeftBoundary = new Vector2d(0, 0);
     }
 
-//    public Map<Vector2d, Animal> getAnimals() {
-//        return animals;
-//    }
-
-//    @Override
-//    public boolean place(Animal animal) {
-//        if (canMoveTo(animal.getPos())) {
-//            animals.put(animal.getPos(), animal);
-//            return true;
-//        }
-//        return false;
-//    }
-//
-//    @Override
-//    public void move(Animal animal, MoveDirection direction) {
-//        if (animals.containsValue(animal)) {
-//            animals.remove(animal.getPos());  //usuń zwierzaka z aktualnej pozycji na mapie
-//            animal.move(direction, this); //przenieś zwierzaka, chyba że sie nie da to nic nie zmieniaj
-//            animals.put(animal.getPos(), animal); //umieść na mapie zwierzaka tam gdzie go przeniosłeś (lub przywróć)
-//        }
-//    }
-
-//    @Override
-//    public boolean isOccupied(Vector2d position) {
-//        return animals.containsKey(position);
-//    }
-
-//    @Override
-//    public WorldElement objectAt(Vector2d position) {
-//        return animals.get(position);
-//    }
 
     @Override
     public boolean canMoveTo(Vector2d position) {
@@ -68,12 +36,6 @@ public class RectangularMap extends AbstractWorldMap {
     public Vector2d findLowerLeftBoundary() {
         return lowerLeftBoundary;
     }
-
-//    @Override
-//    public String toString() {
-//        MapVisualizer mapVis = new MapVisualizer(this);
-//        return mapVis.draw(lowerLeftBoundary, upperRightBoundary);
-//    }
 
 
     public boolean isOnMap(Vector2d position) {
