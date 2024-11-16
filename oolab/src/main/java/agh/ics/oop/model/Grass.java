@@ -10,6 +10,7 @@ public class Grass implements WorldElement{
         return position;
     }
 
+    @Override
     public String toString(){
         return "*";
     }

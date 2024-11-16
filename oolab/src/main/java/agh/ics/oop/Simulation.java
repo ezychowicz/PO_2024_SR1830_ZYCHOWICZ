@@ -2,6 +2,7 @@ package agh.ics.oop;
 
 import agh.ics.oop.model.*;
 
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -31,6 +32,8 @@ public class Simulation {
         for (int idx : indicesToRemove) {
             positions.remove(idx);
         }
+
+
     }
     public WorldMap getWorldMap() {
         return worldMap;
@@ -43,6 +46,7 @@ public class Simulation {
     public void run(){
         int animalsIndex;
         Vector2d currPos;
+
         for (int i = 0; i < moves.size(); i++) {
             animalsIndex = i % positions.size();
             currPos = positions.get(animalsIndex); //pozycja zwierzaka, którego bedziemy chcieli przenieść
