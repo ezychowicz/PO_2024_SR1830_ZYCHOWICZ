@@ -1,5 +1,4 @@
-package agh.ics.oop.integration;
-import agh.ics.oop.model.*;
+package agh.ics.oop.model;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
