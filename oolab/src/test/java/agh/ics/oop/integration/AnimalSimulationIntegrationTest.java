@@ -23,7 +23,8 @@ public class AnimalSimulationIntegrationTest {
         sim.run();
 
         Vector2d desiredEndPos = new Vector2d(3,4);
-        Animal endingPositionContent = sim.getWorldMap().objectAt(desiredEndPos);
+        Animal endingPositionContent = (Animal) sim.getWorldMap().objectAt(desiredEndPos);
+        assertTrue(worldMap.isOccupied(desiredEndPos));
         assertTrue(worldMap.isOccupied(desiredEndPos));
         MapDirection endingDirection = endingPositionContent.getDirection();
         assertEquals(MapDirection.SOUTH, endingDirection);
@@ -39,7 +40,7 @@ public class AnimalSimulationIntegrationTest {
         sim.run();
 
         Vector2d desiredEndPos = new Vector2d(2,4);
-        Animal endingPositionContent = sim.getWorldMap().objectAt(desiredEndPos);
+        Animal endingPositionContent = (Animal) sim.getWorldMap().objectAt(desiredEndPos);
         assertTrue(sim.getWorldMap().isOccupied(desiredEndPos));
     }
 
@@ -53,7 +54,7 @@ public class AnimalSimulationIntegrationTest {
         sim.run();
 
         Vector2d desiredEndPos = new Vector2d(2,0);
-        Animal endingPositionContent = sim.getWorldMap().objectAt(desiredEndPos);
+        Animal endingPositionContent = (Animal) sim.getWorldMap().objectAt(desiredEndPos);
         assertTrue(sim.getWorldMap().isOccupied(desiredEndPos));
     }
 
@@ -67,7 +68,7 @@ public class AnimalSimulationIntegrationTest {
         sim.run();
 
         Vector2d desiredEndPos = new Vector2d(0,2);
-        Animal endingPositionContent = sim.getWorldMap().objectAt(desiredEndPos);
+        Animal endingPositionContent = (Animal) sim.getWorldMap().objectAt(desiredEndPos);
         assertTrue(sim.getWorldMap().isOccupied(desiredEndPos));
     }
 
@@ -81,7 +82,7 @@ public class AnimalSimulationIntegrationTest {
         sim.run();
 
         Vector2d desiredEndPos = new Vector2d(4,2);
-        Animal endingPositionContent = sim.getWorldMap().objectAt(desiredEndPos);
+        Animal endingPositionContent = (Animal) sim.getWorldMap().objectAt(desiredEndPos);
         assertTrue(sim.getWorldMap().isOccupied(desiredEndPos));
     }
 
@@ -103,7 +104,7 @@ public class AnimalSimulationIntegrationTest {
         sim.run();
 
         Vector2d desiredEndPos = new Vector2d(2,2);
-        Animal endingPositionContent = sim.getWorldMap().objectAt(desiredEndPos);
+        Animal endingPositionContent = (Animal) sim.getWorldMap().objectAt(desiredEndPos);
         assertTrue(worldMap.isOccupied(desiredEndPos));
         MapDirection endingDirection = endingPositionContent.getDirection();
         assertEquals(MapDirection.EAST, endingDirection);
@@ -126,7 +127,7 @@ public class AnimalSimulationIntegrationTest {
         sim.run();
 
         Vector2d desiredEndPos = new Vector2d(3,2);
-        Animal endingPositionContent = sim.getWorldMap().objectAt(desiredEndPos);
+        Animal endingPositionContent = (Animal) sim.getWorldMap().objectAt(desiredEndPos);
         assertTrue(worldMap.isOccupied(desiredEndPos));
         MapDirection endingDirection = endingPositionContent.getDirection();
         assertEquals(MapDirection.NORTH, endingDirection);
@@ -149,7 +150,7 @@ public class AnimalSimulationIntegrationTest {
 
         List<Vector2d> desiredEndPos = List.of(new Vector2d(1,2), new Vector2d(0,2));
         List<MapDirection> desiredEndingDirections = List.of(MapDirection.WEST,MapDirection.EAST);
-        List<Animal> endingPositionContent = List.of(sim.getWorldMap().objectAt(desiredEndPos.getFirst()),sim.getWorldMap().objectAt(desiredEndPos.get(1)));
+        List<Animal> endingPositionContent = List.of((Animal) sim.getWorldMap().objectAt(desiredEndPos.getFirst()),(Animal) sim.getWorldMap().objectAt(desiredEndPos.get(1)));
         assertTrue(worldMap.isOccupied(desiredEndPos.getFirst()) && worldMap.isOccupied(desiredEndPos.get(1)));
         List<MapDirection> endingDirections = List.of(endingPositionContent.getFirst().getDirection(), endingPositionContent.get(1).getDirection());
         assertEquals(desiredEndingDirections, endingDirections);
@@ -170,7 +171,7 @@ public class AnimalSimulationIntegrationTest {
 
         assertEquals(1, sim.getPositions().size());
         Vector2d desiredEndPos = new Vector2d(2,3);
-        Animal endingPositionContent = sim.getWorldMap().objectAt(desiredEndPos);
+        Animal endingPositionContent = (Animal)sim.getWorldMap().objectAt(desiredEndPos);
         assertTrue(worldMap.isOccupied(desiredEndPos));
         MapDirection endingDirection = endingPositionContent.getDirection();
         assertEquals(MapDirection.NORTH, endingDirection);
@@ -191,7 +192,7 @@ public class AnimalSimulationIntegrationTest {
 
         assertEquals(1, sim.getPositions().size());
         Vector2d desiredEndPos = new Vector2d(2,3);
-        Animal endingPositionContent = sim.getWorldMap().objectAt(desiredEndPos);
+        Animal endingPositionContent = (Animal)sim.getWorldMap().objectAt(desiredEndPos);
         assertTrue(worldMap.isOccupied(desiredEndPos));
         MapDirection endingDirection = endingPositionContent.getDirection();
         assertEquals(MapDirection.NORTH, endingDirection);

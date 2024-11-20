@@ -1,6 +1,6 @@
 package agh.ics.oop.model;
 
-public class Animal {
+public class Animal implements WorldElement{
     private MapDirection direction;
     private Vector2d pos;
     private static final Vector2d RIGHT_BOUNDARY_VECTOR = new Vector2d(4,4);
@@ -36,9 +36,7 @@ public class Animal {
     public void setDirection(MapDirection direction) {
         this.direction = direction;
     }
-    public void setPos(Vector2d pos) {
-        this.pos = pos;
-    }
+
 
     private void moveForwardBackward(MoveDirection currMoveDirection, MapDirection direction, MoveValidator validator) {
         Vector2d move;
