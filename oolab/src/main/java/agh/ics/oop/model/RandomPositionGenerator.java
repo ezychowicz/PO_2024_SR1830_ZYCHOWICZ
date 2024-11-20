@@ -42,7 +42,7 @@ public class RandomPositionGenerator implements Iterable<Vector2d> {
             @Override
             public Vector2d next() {
                 if (!hasNext()) {
-                    throw new NoSuchElementException();
+                    throw new NoSuchElementException("No grasses left to allocate");
                 }
                 count++;
                 int randomInt = random.nextInt(availableIndices.size()); //losuje w zakresie dostepnych pozycji

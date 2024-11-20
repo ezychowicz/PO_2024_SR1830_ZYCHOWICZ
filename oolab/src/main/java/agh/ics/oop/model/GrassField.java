@@ -20,8 +20,10 @@ public class GrassField extends AbstractWorldMap{
 
 
     @Override
-    public boolean canMoveTo(Vector2d position) { //inny validator
-        return !animals.containsKey(position);
+    public void canMoveTo(Vector2d position) throws IncorrectPositionException{ //inny validator
+        if (animals.containsKey(position)){
+            throw new IncorrectPositionException(position);
+        }
     }
 
 

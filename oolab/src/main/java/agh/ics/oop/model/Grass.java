@@ -1,8 +1,10 @@
 package agh.ics.oop.model;
 
+import java.util.Objects;
+
 public class Grass implements WorldElement{
     private final Vector2d position;
-
+    private static final String GRASS_STRING = "*";
     public Grass(Vector2d position){
         this.position = position;
     }
@@ -12,9 +14,8 @@ public class Grass implements WorldElement{
 
     @Override
     public String toString(){
-        return "*";
+        return GRASS_STRING;
     }
-
 
     @Override
     public Vector2d getPos() {
@@ -26,4 +27,16 @@ public class Grass implements WorldElement{
         return position.equals(pos);
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Grass grass = (Grass) o;
+        return Objects.equals(position, grass.position);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(position);
+    }
 }

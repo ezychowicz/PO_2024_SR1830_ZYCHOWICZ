@@ -12,7 +12,7 @@ public abstract class AbstractWorldMap implements WorldMap {
 
     public abstract Vector2d findUpperRightBoundary();
     public abstract Vector2d findLowerLeftBoundary();
-    public abstract boolean canMoveTo(Vector2d position);
+    public abstract void canMoveTo(Vector2d position);
     public boolean isOccupied(Vector2d position){
         return animals.containsKey(position);
     }

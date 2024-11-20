@@ -23,6 +23,7 @@ public class RectangularMap extends AbstractWorldMap {
 
     @Override
     public boolean canMoveTo(Vector2d position) {
+        if (!isOccupied(position) && isOnMap(position)){
         return !isOccupied(position) && isOnMap(position);
 
     }
