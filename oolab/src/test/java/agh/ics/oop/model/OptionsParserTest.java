@@ -24,21 +24,26 @@ public class OptionsParserTest {
     public void ParseWithInvalidLettersInInput() {
         String[] input = {"f", "dada","grdeg","a", "f","2", "b", "l","12131", "r","rtee45", "l"};
 
-        List<MoveDirection> output = OptionsParser.parse(input);
+        try {
+            OptionsParser.parse(input);
+            fail("IllegalArgumentException was expected but not thrown");
+        } catch (IllegalArgumentException e) {
+            String message = e.getMessage();
+            assertEquals("dada is not legal move specification", message);
+        }
 
-        MoveDirection[] expectedTab = {MoveDirection.FORWARD, MoveDirection.FORWARD, MoveDirection.BACKWARD, MoveDirection.LEFT, MoveDirection.RIGHT, MoveDirection.LEFT};
-        List<MoveDirection> expected = new ArrayList<>(Arrays.asList(expectedTab));
-        assertEquals(expected, output);
     }
     @Test
     public void ParseWithOnlyInvalidInput() {
         String[] input = {"g", "a", "2", "434", "adda", "lflflfllllf", "asd", "wdi"};
 
-        List<MoveDirection> output = OptionsParser.parse(input);
-
-        MoveDirection[] expectedTab = new MoveDirection[]{};
-        List<MoveDirection> expected = new ArrayList<>(Arrays.asList(expectedTab));
-        assertEquals(expected, output);
+        try {
+            OptionsParser.parse(input);
+            fail("IllegalArgumentException was expected but not thrown");
+        } catch (IllegalArgumentException e) {
+            String message = e.getMessage();
+            assertEquals("g is not legal move specification", message);
+        }
     }
     @Test
     public void ParseWithEmptyInput() {
@@ -51,9 +56,13 @@ public class OptionsParserTest {
     @Test
     public void ParseUpperCaseInput() {
         String[] input = {"L", "R", "L", "R", "F", "B"};
-        List<MoveDirection> output = OptionsParser.parse(input);
-        MoveDirection[] expectedTab = new MoveDirection[] {};
-        List<MoveDirection> expected = new ArrayList<>(Arrays.asList(expectedTab));
-        assertEquals(expected, output);
+        try {
+            OptionsParser.parse(input);
+            fail("IllegalArgumentException was expected but not thrown");
+        } catch (IllegalArgumentException e) {
+            String message = e.getMessage();
+            assertEquals("L is not legal move specification", message);
+        }
+
     }
 }

@@ -1,5 +1,6 @@
 package agh.ics.oop.model;
 
+import agh.ics.oop.model.util.Boundary;
 import agh.ics.oop.model.util.MapVisualizer;
 
 import java.util.HashMap;
@@ -20,28 +21,20 @@ public class RectangularMap extends AbstractWorldMap {
         this.lowerLeftBoundary = new Vector2d(0, 0);
     }
 
-
-    @Override
-    public boolean canMoveTo(Vector2d position) {
-        if (!isOccupied(position) && isOnMap(position)){
-        return !isOccupied(position) && isOnMap(position);
-
-    }
-
-    @Override
-    public Vector2d findUpperRightBoundary() {
-        return upperRightBoundary;
-    }
-
-    @Override
-    public Vector2d findLowerLeftBoundary() {
-        return lowerLeftBoundary;
-    }
-
-
     public boolean isOnMap(Vector2d position) {
         return position.precedes(upperRightBoundary) && position.follows(lowerLeftBoundary);
     }
+
+    @Override
+    public boolean canMoveTo(Vector2d position) {
+        return !isOccupied(position) && isOnMap(position);
+    }
+
+    @Override
+    public Boundary getCurrentBounds(){
+        return new Boundary(upperRightBoundary, lowerLeftBoundary);
+    }
+
 
     private Vector2d moveForwardBackward(Animal animal, MoveDirection currMoveDirection) {
         Vector2d move;

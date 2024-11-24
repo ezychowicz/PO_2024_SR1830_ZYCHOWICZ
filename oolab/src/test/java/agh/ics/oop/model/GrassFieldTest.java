@@ -1,4 +1,5 @@
 package agh.ics.oop.model;
+import agh.ics.oop.model.exceptions.IncorrectPositionException;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -28,8 +29,13 @@ public class GrassFieldTest {
     void placingAnimalOnEmptyGrassField() {
         GrassField grassField = new GrassField(0);
         Animal animal = new Animal(new Vector2d(2, 2));
-
-        boolean result = grassField.place(animal);
+        boolean result = false;
+        try {
+            result = grassField.place(animal);
+        }
+        catch (IncorrectPositionException e) {
+            fail("IncorrectPositionException not expected");
+        }
 
         assertTrue(result);
         assertEquals(animal, grassField.objectAt(new Vector2d(2, 2)));
@@ -39,12 +45,15 @@ public class GrassFieldTest {
         GrassField grassField = new GrassField(0);
         Animal animal1 = new Animal(new Vector2d(2, 2));
         Animal animal2 = new Animal(new Vector2d(2, 2));
-        grassField.place(animal1);
+        try {
+            grassField.place(animal1);
+            grassField.place(animal2);
+            fail("IncorrectPositionException expected");
+        }
+        catch (IncorrectPositionException e) {
+            assertEquals(animal1, grassField.objectAt(new Vector2d(2, 2)));
+        }
 
-        boolean result = grassField.place(animal2);
-
-        assertFalse(result);
-        assertEquals(animal1, grassField.objectAt(new Vector2d(2, 2)));
     }
 
     @Test
@@ -53,12 +62,15 @@ public class GrassFieldTest {
         grassField.getGrasses().put(new Vector2d(2,2), new Grass(new Vector2d(2, 2)));
         Animal animal1 = new Animal(new Vector2d(2, 2));
         Animal animal2 = new Animal(new Vector2d(2, 2));
-        grassField.place(animal1);
+        try {
+            grassField.place(animal1);
+            grassField.place(animal2);
+            fail("IncorrectPositionException expected");
+        }
+        catch (IncorrectPositionException e) {
+            assertEquals(animal1, grassField.objectAt(new Vector2d(2, 2)));
+        }
 
-        boolean result = grassField.place(animal2);
-
-        assertFalse(result);
-        assertEquals(animal1, grassField.objectAt(new Vector2d(2, 2)));
     }
     @Test
     void movingAnimalThroughGrasses() {
@@ -73,8 +85,13 @@ public class GrassFieldTest {
         grassField.getGrasses().put(new Vector2d(2, 2), new Grass(new Vector2d(2, 2)));
         grassField.getGrasses().put(new Vector2d(3, 2), new Grass(new Vector2d(3, 2)));
         grassField.getGrasses().put(new Vector2d(4, 2), new Grass(new Vector2d(4, 2)));
-        grassField.place(animal);
 
+        try {
+            grassField.place(animal);
+        }
+        catch (IncorrectPositionException e) {
+            fail("IncorrectPositionException not expected");
+        }
         grassField.move(animal, MoveDirection.RIGHT);
         grassField.move(animal, MoveDirection.FORWARD);
         grassField.move(animal, MoveDirection.FORWARD);
@@ -89,9 +106,13 @@ public class GrassFieldTest {
     @Test
     void mapBoundariesFinding() {
         GrassField grassField = new GrassField(0);
-        grassField.place(new Animal(new Vector2d(1, 2)));
-        grassField.place(new Animal(new Vector2d(4, 5)));
-        grassField.place(new Animal(new Vector2d(101, 5)));
+        try {
+            grassField.place(new Animal(new Vector2d(1, 2)));
+            grassField.place(new Animal(new Vector2d(4, 5)));
+            grassField.place(new Animal(new Vector2d(101, 5)));
+        } catch (IncorrectPositionException e) {
+            fail("IncorrectPositionException not expected");
+        }
         grassField.getGrasses().put(new Vector2d(0, 0), new Grass(new Vector2d(0, 0)));
         grassField.getGrasses().put(new Vector2d(6, 6), new Grass(new Vector2d(6, 6)));
         grassField.getGrasses().put(new Vector2d(100,100), new Grass(new Vector2d(100, 100)));

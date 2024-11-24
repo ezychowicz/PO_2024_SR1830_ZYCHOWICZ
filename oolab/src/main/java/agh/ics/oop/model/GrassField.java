@@ -1,9 +1,9 @@
 package agh.ics.oop.model;
 
-import agh.ics.oop.model.util.MapVisualizer;
+import agh.ics.oop.model.exceptions.IncorrectPositionException;
+import agh.ics.oop.model.util.Boundary;
 
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -20,10 +20,8 @@ public class GrassField extends AbstractWorldMap{
 
 
     @Override
-    public void canMoveTo(Vector2d position) throws IncorrectPositionException{ //inny validator
-        if (animals.containsKey(position)){
-            throw new IncorrectPositionException(position);
-        }
+    public boolean canMoveTo(Vector2d position) { //inny validator
+        return !animals.containsKey(position);
     }
 
 
@@ -41,7 +39,6 @@ public class GrassField extends AbstractWorldMap{
         return grasses.get(position);
     }
 
-    @Override
     public Vector2d findUpperRightBoundary() {
         Vector2d currUpperRight = new Vector2d(Integer.MIN_VALUE, Integer.MIN_VALUE);
         for (Vector2d position : animals.keySet()) {
@@ -53,8 +50,6 @@ public class GrassField extends AbstractWorldMap{
         return currUpperRight;
     }
 
-
-    @Override
     public Vector2d findLowerLeftBoundary() {
         Vector2d currLowerLeft = new Vector2d(Integer.MAX_VALUE, Integer.MAX_VALUE);
         for (Vector2d position : animals.keySet()) {
@@ -64,6 +59,11 @@ public class GrassField extends AbstractWorldMap{
             currLowerLeft = currLowerLeft.lowerLeft(position);
         }
         return currLowerLeft;
+    }
+
+    @Override
+    public Boundary getCurrentBounds(){
+        return new Boundary(findLowerLeftBoundary(), findUpperRightBoundary());
     }
 
     @Override

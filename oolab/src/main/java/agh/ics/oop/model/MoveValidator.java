@@ -9,7 +9,7 @@ public interface MoveValidator {
      *
      * @param position
      *            The position checked for the movement possibility.
-     * @return None???? if the object can move to that position.
+     * @return true if the object can move to that position.
      */
-    void canMoveTo(Vector2d position);
+    boolean canMoveTo(Vector2d position);
 }
