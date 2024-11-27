@@ -1,6 +1,7 @@
 package agh.ics.oop;
 
 import agh.ics.oop.model.*;
+import agh.ics.oop.model.exceptions.IncorrectPositionException;
 
 
 import java.util.ArrayList;
@@ -8,7 +9,7 @@ import java.util.Collections;
 import java.util.List;
 
 public class Simulation {
-    public static final String ANIMAL_STRING = "Zwierze";
+    public static final String ANIMAL_STRING = "Animal";
     private final List<Vector2d> positions;
     private final List<MoveDirection> moves;
     private final WorldMap worldMap;
@@ -24,7 +25,9 @@ public class Simulation {
         for (int i = 0; i < positions.size(); i++) {
             Vector2d position = positions.get(i);
             Animal animal = new Animal(position);
-            if (!worldMap.place(animal)) {  // jeśli nie udało się umieścić, dodaj indeks do usunięcia
+            try {
+                worldMap.place(animal);
+            }catch (IncorrectPositionException e){
                 indicesToRemove.add(i);
             }
         }
@@ -53,7 +56,6 @@ public class Simulation {
             WorldElement animalAtCurrPos = worldMap.objectAt(currPos);
             worldMap.move((Animal) animalAtCurrPos, moves.get(i)); //próba przeniesienia
             positions.set(animalsIndex, animalAtCurrPos.getPos()); //zaktualizuj pozycje
-            System.out.println(worldMap);
         }
     }
 }

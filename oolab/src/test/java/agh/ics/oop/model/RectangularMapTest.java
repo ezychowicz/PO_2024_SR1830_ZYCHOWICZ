@@ -1,5 +1,6 @@
 package agh.ics.oop.model;
 
+import agh.ics.oop.model.exceptions.IncorrectPositionException;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -20,8 +21,12 @@ public class RectangularMapTest {
     void placingAnimalOnUnoccupiedPosition() {
         RectangularMap map = new RectangularMap(5, 5);
         Animal animal = new Animal(new Vector2d(2, 2));
-
-        boolean result = map.place(animal);
+        boolean result = false;
+        try {
+            result = map.place(animal);
+        } catch (IncorrectPositionException e) {
+            fail("IncorrectPositionException not expected");
+        }
 
         assertTrue(result);
         assertEquals(animal, map.objectAt(new Vector2d(2, 2)));
@@ -32,19 +37,26 @@ public class RectangularMapTest {
         RectangularMap map = new RectangularMap(5, 5);
         Animal animal1 = new Animal(new Vector2d(2, 2));
         Animal animal2 = new Animal(new Vector2d(2, 2));
-        map.place(animal1);
+        try {
+            map.place(animal1);
+            map.place(animal2);
+            fail("IncorrectPositionException not expected");
+        }
+        catch (IncorrectPositionException e) {
+            assertEquals(animal1, map.objectAt(new Vector2d(2, 2)));
+        }
 
-        boolean result = map.place(animal2);
-
-        assertFalse(result);
-        assertEquals(animal1, map.objectAt(new Vector2d(2, 2)));
     }
 
     @Test
     void movingAnimalInBounds() {
         RectangularMap map = new RectangularMap(5, 5);
         Animal animal = new Animal(new Vector2d(2, 2));
-        map.place(animal);
+        try {
+            map.place(animal);
+        } catch (IncorrectPositionException e) {
+            fail("IncorrectPositionException not expected");
+        }
 
         map.move(animal, MoveDirection.FORWARD);
 
@@ -57,8 +69,12 @@ public class RectangularMapTest {
     void movingAnimalOutsideOfMapBounds() {
         RectangularMap map = new RectangularMap(5, 5);
         Animal animal = new Animal(new Vector2d(5, 5));
-        map.place(animal);
 
+        try {
+            map.place(animal);
+        } catch (IncorrectPositionException e) {
+            fail("IncorrectPositionException not expected");
+        }
         map.move(animal, MoveDirection.FORWARD);
 
         assertEquals(new Vector2d(5, 5), animal.getPos());

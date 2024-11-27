@@ -1,5 +1,7 @@
 package agh.ics.oop.model;
 
+import agh.ics.oop.model.exceptions.IncorrectPositionException;
+
 public class Animal implements WorldElement{
     private MapDirection direction;
     private Vector2d pos;
@@ -38,7 +40,7 @@ public class Animal implements WorldElement{
     }
 
 
-    private void moveForwardBackward(MoveDirection currMoveDirection, MapDirection direction, MoveValidator validator) {
+    private void moveForwardBackward(MoveDirection currMoveDirection, MapDirection direction, MoveValidator validator) throws IncorrectPositionException{
         Vector2d move;
         switch (direction) {
             case NORTH -> move = (currMoveDirection == MoveDirection.FORWARD ? MapDirection.NORTH_UNIT_VECTOR : MapDirection.SOUTH_UNIT_VECTOR);
@@ -50,6 +52,8 @@ public class Animal implements WorldElement{
         Vector2d newPosition = pos.add(move);
         if (validator.canMoveTo(newPosition)) {
             pos = newPosition;
+        }else{
+            throw new IncorrectPositionException(newPosition);
         }
     }
 
@@ -57,7 +61,13 @@ public class Animal implements WorldElement{
         switch(direction) {
             case LEFT -> this.direction = this.direction.previous();
             case RIGHT -> this.direction = this.direction.next();
-            case FORWARD, BACKWARD -> moveForwardBackward(direction, this.direction, validator);
+            case FORWARD, BACKWARD -> {
+                try {
+                    moveForwardBackward(direction, this.direction, validator);
+                } catch (IncorrectPositionException e) {
+                    e.printStackTrace();
+                }
+            }
         };
     }
 

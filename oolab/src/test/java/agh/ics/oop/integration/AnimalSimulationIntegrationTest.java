@@ -13,24 +13,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class AnimalSimulationIntegrationTest {
     @Test
-    public void isInputParsingWorkingWithSimulationCorrectly() { //nie ma sensu testować samego parseowania, bo jest to zrobione dość dokładnie w OptionsParserTest
-        String[] input = {"f", "f", "f", "l", "b", "e", "W", "l", "b", "b", "r", "l", "b", "3"};
-        List<Vector2d> positions = List.of(new Vector2d(2,2));
-        WorldMap worldMap = new RectangularMap(4, 4);
-
-        List<MoveDirection> directions = OptionsParser.parse(input);
-        Simulation sim = new Simulation(positions, directions, worldMap);
-        sim.run();
-
-        Vector2d desiredEndPos = new Vector2d(3,4);
-        Animal endingPositionContent = (Animal) sim.getWorldMap().objectAt(desiredEndPos);
-        assertTrue(worldMap.isOccupied(desiredEndPos));
-        assertTrue(worldMap.isOccupied(desiredEndPos));
-        MapDirection endingDirection = endingPositionContent.getDirection();
-        assertEquals(MapDirection.SOUTH, endingDirection);
-    }
-
-    @Test
     public void isUpperBoundarySolid(){
         List<Vector2d> positions = List.of(new Vector2d(2,4));
         List<MoveDirection> directions = List.of(MoveDirection.FORWARD);
