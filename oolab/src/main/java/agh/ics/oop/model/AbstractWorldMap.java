@@ -9,6 +9,7 @@ import java.util.*;
 import static agh.ics.oop.Simulation.ANIMAL_STRING;
 
 public abstract class AbstractWorldMap implements WorldMap{
+    private final UUID id = UUID.randomUUID();
     protected final Map<Vector2d, Animal> animals = new HashMap<>();  //animals jest w obu mapach
     public abstract Boundary getCurrentBounds();
     public abstract boolean canMoveTo(Vector2d position);
@@ -90,5 +91,8 @@ public abstract class AbstractWorldMap implements WorldMap{
         return new ArrayList<>(animals.values());
     }
 
+    public UUID getId(){
+        return id;
+    }
 }
 

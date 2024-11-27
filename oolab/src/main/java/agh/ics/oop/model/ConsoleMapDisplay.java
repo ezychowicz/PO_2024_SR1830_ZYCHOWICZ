@@ -9,6 +9,6 @@ public class ConsoleMapDisplay implements MapChangeListener{
         updateCnt++;
         System.out.println(message);
         System.out.println(worldMap);
-        System.out.println("%s %s: %d\n\n".formatted(UPDATE_STRING, COUNT_STRING, updateCnt));
+        System.out.println("%s %s: %d ID:%s\n\n".formatted(UPDATE_STRING, COUNT_STRING, updateCnt, worldMap.getId()));
     }
 }
