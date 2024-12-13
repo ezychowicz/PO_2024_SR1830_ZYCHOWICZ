@@ -32,9 +32,9 @@ public class World {
 //        simEngine.runSync();
         simEngine.runAsyncInThreadPool();
         System.out.println("system zakonczyl dzialanie");
-        SimulationApp simulationApp = new SimulationApp();
-        Stage stage = new Stage();
-        simulationApp.start(stage);
+//        SimulationApp simulationApp = new SimulationApp();
+//        Stage stage = new Stage();
+//        simulationApp.start(stage);
     }
     public static void run(MoveDirection[] input){
         for (MoveDirection arg : input) {
