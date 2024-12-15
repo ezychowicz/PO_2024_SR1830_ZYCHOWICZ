@@ -17,7 +17,7 @@ public class Simulation implements Runnable {
         this.positions = new ArrayList<>(positions); //zeby dało sie usuwać
         this.moves = moves;
         this.worldMap = worldMap;
-        fillWorldMap();
+//        fillWorldMap();
     }
 
     private void fillWorldMap() {
@@ -27,8 +27,11 @@ public class Simulation implements Runnable {
             Animal animal = new Animal(position);
             try {
                 worldMap.place(animal);
+                Thread.sleep(750);
             }catch (IncorrectPositionException e){
                 indicesToRemove.add(i);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
         }
         indicesToRemove.sort(Collections.reverseOrder());
@@ -49,13 +52,19 @@ public class Simulation implements Runnable {
     public void run(){
         int animalsIndex;
         Vector2d currPos;
-
+        fillWorldMap();
         for (int i = 0; i < moves.size(); i++) {
             animalsIndex = i % positions.size();
             currPos = positions.get(animalsIndex); //pozycja zwierzaka, którego bedziemy chcieli przenieść
             WorldElement animalAtCurrPos = worldMap.objectAt(currPos);
             worldMap.move((Animal) animalAtCurrPos, moves.get(i)); //próba przeniesienia
             positions.set(animalsIndex, animalAtCurrPos.getPos()); //zaktualizuj pozycje
+            try {
+                Thread.sleep(1500);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
+
     }
 }

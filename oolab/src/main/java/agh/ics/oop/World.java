@@ -1,12 +1,14 @@
 package agh.ics.oop;
 import agh.ics.oop.model.*;
 import agh.ics.oop.model.exceptions.IllegalMoveSpecificationException;
+import javafx.application.Application;
+import javafx.stage.Stage;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class World {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         List<MoveDirection> directions = null;
         try {
             directions = OptionsParser.parse(args);
@@ -30,6 +32,9 @@ public class World {
 //        simEngine.runSync();
         simEngine.runAsyncInThreadPool();
         System.out.println("system zakonczyl dzialanie");
+//        SimulationApp simulationApp = new SimulationApp();
+//        Stage stage = new Stage();
+//        simulationApp.start(stage);
     }
     public static void run(MoveDirection[] input){
         for (MoveDirection arg : input) {
