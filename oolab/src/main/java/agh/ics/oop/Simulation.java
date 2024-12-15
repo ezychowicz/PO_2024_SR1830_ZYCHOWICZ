@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class Simulation {
+public class Simulation implements Runnable {
     public static final String ANIMAL_STRING = "Animal";
     private final List<Vector2d> positions;
     private final List<MoveDirection> moves;

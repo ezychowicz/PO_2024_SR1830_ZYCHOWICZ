@@ -32,7 +32,7 @@ public class RectangularMap extends AbstractWorldMap {
 
     @Override
     public Boundary getCurrentBounds(){
-        return new Boundary(upperRightBoundary, lowerLeftBoundary);
+        return new Boundary(lowerLeftBoundary, upperRightBoundary);
     }
 
 

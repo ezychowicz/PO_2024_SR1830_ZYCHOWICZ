@@ -1,6 +1,8 @@
 package agh.ics.oop;
 import agh.ics.oop.model.*;
+import agh.ics.oop.model.exceptions.IllegalMoveSpecificationException;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class World {
@@ -9,17 +11,25 @@ public class World {
         try {
             directions = OptionsParser.parse(args);
         }
-        catch (IllegalArgumentException e) {
+        catch (IllegalMoveSpecificationException e) {
             e.printStackTrace();
             System.err.println("error: " + e.getMessage());
             return;
         }
         List<Vector2d> positions = List.of(new Vector2d(2,2), new Vector2d(3,4));
-        AbstractWorldMap grassField = new GrassField(10);
-        ConsoleMapDisplay observer1 = new ConsoleMapDisplay();
-        grassField.addObserver(observer1);
-        Simulation simulation = new Simulation(positions, directions, grassField);
-        simulation.run();
+        List<Simulation> simulations = new ArrayList<>();
+        for (int i = 0; i < 1000;i++){
+            AbstractWorldMap grassF = new GrassField(10);
+            grassF.addObserver(new ConsoleMapDisplay());
+            AbstractWorldMap rectangularF = new RectangularMap(5,5);
+            rectangularF.addObserver(new ConsoleMapDisplay());
+            simulations.add(new Simulation(positions,directions,rectangularF));
+            simulations.add(new Simulation(positions,directions,grassF));
+        }
+        SimulationEngine simEngine = new SimulationEngine(simulations);
+//        simEngine.runSync();
+        simEngine.runAsyncInThreadPool();
+        System.out.println("system zakonczyl dzialanie");
     }
     public static void run(MoveDirection[] input){
         for (MoveDirection arg : input) {
